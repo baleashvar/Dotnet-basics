@@ -1,0 +1,15 @@
+/home/bala/Documents/Csharp/bin/Debug/net6.0/Csharp
+/home/bala/Documents/Csharp/bin/Debug/net6.0/Csharp.deps.json
+/home/bala/Documents/Csharp/bin/Debug/net6.0/Csharp.runtimeconfig.json
+/home/bala/Documents/Csharp/bin/Debug/net6.0/Csharp.dll
+/home/bala/Documents/Csharp/bin/Debug/net6.0/ref/Csharp.dll
+/home/bala/Documents/Csharp/bin/Debug/net6.0/Csharp.pdb
+/home/bala/Documents/Csharp/obj/Debug/net6.0/Csharp.csproj.AssemblyReference.cache
+/home/bala/Documents/Csharp/obj/Debug/net6.0/Csharp.GeneratedMSBuildEditorConfig.editorconfig
+/home/bala/Documents/Csharp/obj/Debug/net6.0/Csharp.AssemblyInfoInputs.cache
+/home/bala/Documents/Csharp/obj/Debug/net6.0/Csharp.AssemblyInfo.cs
+/home/bala/Documents/Csharp/obj/Debug/net6.0/Csharp.csproj.CoreCompileInputs.cache
+/home/bala/Documents/Csharp/obj/Debug/net6.0/Csharp.dll
+/home/bala/Documents/Csharp/obj/Debug/net6.0/ref/Csharp.dll
+/home/bala/Documents/Csharp/obj/Debug/net6.0/Csharp.pdb
+/home/bala/Documents/Csharp/obj/Debug/net6.0/Csharp.genruntimeconfig.cache
