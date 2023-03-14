@@ -1,0 +1,19 @@
+Mr.Thomas is developing a registration form using C#.
+
+Customers will give his details. Get the details and display the same as  registration details. 
+
+
+
+Sample Input 1:
+
+Enter your name : Leone
+
+Enter your age : 30
+
+Enter your country :  France
+
+
+
+Sample Output 1:
+
+Welcome Leone. Your age is 30 and you are from France
