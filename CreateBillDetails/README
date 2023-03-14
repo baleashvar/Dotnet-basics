@@ -1,0 +1,29 @@
+Generate Bill Details
+
+Django multiplex is developing application for its cafeteria. The application should be able to calculate the bill details for the following scenario. You bought pizzas, puffs and cool drinks. Consider   the following prices :
+    Rs.200/pizza
+    Rs.40/puffs
+    Rs.120/pepsi
+
+Generate a bill.
+
+The bill details must include the total cost of pizzas, total cost of puffs and total cost of pepsis. Calculate the grand total and display.
+
+Display the GST and CESS amount. GST is 12% and CESS is 5% of the total price.
+
+Sample Input 1:
+
+Enter the number of pizzas bought : 5
+Enter the number of puffs bought : 6
+Enter the number of pepsi bought : 2
+
+Sample Output 1:
+
+Bill Details
+
+Cost of Pizzas :1000
+Cost of Puffs :240
+Cost of Pepsis :240
+GST 12% : 177.6
+CESS 5% : 74
+Total Price :1480
