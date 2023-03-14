@@ -1,0 +1,30 @@
+README
+
+Jona and Helen are playing a game.When one person says a sentence in English , the other person should repeat the sentence in the reverse order. One who does it perfectly gets a score.
+
+Write a C# program to help them found whether the sentence is reversed perfectly.
+
+Get the input string from the user and display the phrase in reverse order.
+
+
+Sample input 1
+
+Enter a string
+
+Here We Go Round the Mulberry Bush
+
+Sample output 1
+
+Bush Mulberry the Round Go We Here
+
+
+
+Sample input 2
+
+Enter a string
+
+JACK and JILL went up the HILL
+
+Sample output 2
+
+HILL the up went JILL and JACK
