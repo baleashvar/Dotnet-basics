@@ -1,0 +1,17 @@
+MaxValueofSignedByte
+
+Leo has just started to learn about data types.  His first assignment is to find out the largest value that can be stored in a signed byte. 
+
+Write a program to declare a variable named 'number' of type signed byte, initialize it to 125 and display it.
+
+Change the value of number to the maximum value of a signed byte and display it as shown in the sample output.
+
+ 
+
+Sample output
+
+Value of number: 125
+
+Largest value stored in a signed byte :   //print the answer.
+
+
