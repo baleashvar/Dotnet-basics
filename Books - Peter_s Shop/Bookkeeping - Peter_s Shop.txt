@@ -1,0 +1,100 @@
+using System;
+using System.Security.Cryptography.X509Certificates;
+using static System.Reflection.Metadata.BlobBuilder;
+#pragma warning disable
+
+public class Book
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Author { get; set; }
+    public int Price { get; set; }
+
+    public Book()
+    {
+
+    }
+}
+public class ConsoleApp1
+{
+    public static List<Book> bookDetails = new List<Book>();
+
+    public static List<Book> SearchBookByName(string bookName)
+    {
+        List<Book> books = new List<Book>();
+
+        foreach(Book obj in bookDetails)
+        {
+            if (obj.Name == bookName)
+            {
+                books.Add(obj);
+            }
+        }
+       return books;  
+    }
+
+    public static int GetBookPrice(string bookName)
+    {
+        bool found = false;
+
+        foreach (Book obj in bookDetails)
+        {
+            if (obj.Name == bookName)
+            {
+                found = true;
+                return obj.Price;
+            }
+        }
+        return 0;
+    }
+    public static void Main(string[] args)
+    {
+       bookDetails.Add(new Book() { Id = 1001, Name = "The Blue Umbrella", Author = "Ruskin Bond", Price = 90});
+       bookDetails.Add(new Book() { Id = 1002, Name = "Malgudi Days", Author = "RK Narayan", Price = 190});
+       bookDetails.Add(new Book() { Id = 1003, Name = "The Alchemist", Author = "Paulo Coelho", Price = 299});
+       bookDetails.Add(new Book() { Id = 1004, Name = "Oliver Twist", Author = "Charles Dickens", Price = 200});
+
+        Console.WriteLine("1. Search Book By Name");
+        Console.WriteLine("2. Get Book Price");
+        Console.WriteLine("3. Exit");
+
+        Console.WriteLine("Enter you choice");
+        int choice = int.Parse(Console.ReadLine());
+
+        if (choice == 1)
+        {
+            Console.WriteLine("Enter book name : ");
+            string bookName = Console.ReadLine();
+
+            List<Book> result = SearchBookByName(bookName);
+
+            if (result.Count != 0)
+            {
+                Console.WriteLine(String.Format("{0, -20} {1, -20} {2, -20} {3}", "Id", "Name", "Author", "Price"));
+                foreach (Book obj in result)
+                {
+                    Console.WriteLine(String.Format("{0, -20} {1, -20} {2, -20} {3}", obj.Id, obj.Name, obj.Author, obj.Price));
+                }
+            }
+            else
+            {
+                Console.WriteLine("Book not found");
+            }
+        }
+
+        else if (choice == 2)
+        {
+            Console.WriteLine("Enter book name : ");
+            string bookName = Console.ReadLine();
+            int result = GetBookPrice(bookName);
+
+            Console.WriteLine("Price : {0}", result);
+        }
+        
+        else if(choice == 3)
+        {
+            Console.WriteLine("Thank you!");
+        }
+    
+    }
+}
