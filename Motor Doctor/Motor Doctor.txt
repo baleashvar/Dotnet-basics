@@ -1,0 +1,169 @@
+using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Text.RegularExpressions;
+using System.Linq;
+
+public class Service         // Parent Class
+{
+    public string ServiceNumber { get; set; }         // Public Properties
+    public string OwnerName { get; set; }
+    public string CarModel { get; set; } 
+    public string ServiceType { get; set; }
+
+    public Service()    // Default Constructor
+    {
+     
+    }
+    public Service(string ServiceNumber, string OwnerName, string CarModel, string ServiceType)  // Parameterized Constructor
+    { 
+        this.ServiceNumber = ServiceNumber;
+        this.OwnerName = OwnerName;
+        this.CarModel = CarModel;
+        this.ServiceType = ServiceType;
+    }
+}
+public class Program
+{
+    // Service List is a list containing objects of class Service
+    // Each object has properties Service Number, Owner Name, Car Model and Service Type 
+
+    public static List<Service> ServiceList = new List<Service>();     
+
+    public static void AddServiceDetails(string[] serviceDetails)
+    {
+        for(int i = 0; i < serviceDetails.Length; i++)         // Go over each string element in array serviceDetails
+        {
+            // AP1:Rahul:Audi A4:Brake
+
+            string[] info = serviceDetails[i].Split(':');
+
+            // info = ["AP1", "Rahul", "Audi A4", "Brake"]
+
+            // info[3] : "Brake"
+
+            if (info[3] == "Brake" || info[3] == "Oil" || info[3] == "General") {  // Add objects for only these service types
+
+                // Create an object and assign values to properties using constructor defined in class Service
+
+                Service obj = new Service(info[0], info[1], info[2], info[3]);
+
+                // Add object to ServiceList
+
+                ServiceList.Add(obj);  
+
+            }
+        }
+    }
+
+    public static Service ViewDetailsByServiceNumber(string serviceNumber)
+    {
+        for(int i = 0; i < ServiceList.Count; i++)     // Go over each object in ServiceList
+        { 
+            if (ServiceList[i].ServiceNumber == serviceNumber)   // if service number of object matched with the user input
+            {
+                return ServiceList[i];     // return that object  (function terminates as soon as it hits return statement)
+            }
+        }
+        
+        Service nullObject = new Service();   // if nothing matches, create an empty object with all properties null
+        
+        return nullObject; // return empty object
+    }
+
+    public static List<Service> ViewDetailsByServiceType(string serviceType)
+    {
+        List<Service> details = new List<Service>();   // Create a new list to hold Service objects that satify below if condition
+
+        for(int i = 0; i < ServiceList.Count; i++)   // Loop over each element in ServiceList
+        {
+            if (ServiceList[i].ServiceType == serviceType)   // If service type matches with the function parameter
+            {
+                details.Add(ServiceList[i]);  // Add that object to list details
+            }
+        }
+        return details;  // return list details containing objects with given service type
+    }
+    
+    // Main method
+    
+    public static void Main(string[] args)
+    {
+        // Adding Service objects to ServiceList
+
+        ServiceList.Add(new Service { ServiceNumber = "AP1", OwnerName = "Rahul", CarModel = "Audi A4", ServiceType = "Oil" });
+        ServiceList.Add(new Service { ServiceNumber = "AP2", OwnerName = "Raghav", CarModel = "BMW Z5", ServiceType = "General" });
+        ServiceList.Add(new Service { ServiceNumber = "AP3", OwnerName = "Ashwin", CarModel = "Porsche 911", ServiceType = "Brake" });
+        ServiceList.Add(new Service { ServiceNumber = "AP4", OwnerName = "Sam", CarModel = "Porsche 455", ServiceType = "Brake" });
+
+        Console.WriteLine("1. Add Service Details");
+        Console.WriteLine("2. View Details By Service Number");
+        Console.WriteLine("3. View Details By Service Type");
+        Console.WriteLine("4. Exit");
+
+        int choice = Convert.ToInt32(Console.ReadLine());
+
+        if (choice == 1)
+        {
+            Console.WriteLine("Enter the number of entries");
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            string[] serviceDetails = new string[n];   // Arrays are of fixed size
+
+            for (int i = 0; i < entries; i++)       // Loop to add 'n' values to array
+            {
+                string entry = Console.ReadLine();
+                serviceDetails[i] = entry; 
+            }
+            AddServiceDetails(serviceDetails); 
+        }
+
+        else if (choice == 2)
+        {
+            Console.WriteLine("Enter the service number");
+            
+            string serviceNumber = Console.ReadLine();
+
+            Service obj = ViewDetailsByServiceNumber(serviceNumber);
+
+            if (obj.ServiceNumber is null)  // If service number is not assigned means it is null object
+            {
+                Console.WriteLine("Service number not found");
+            }
+            else
+            {
+                Console.WriteLine("Service Number : {0}, Name : {1}, Car Model : {2}, Service Type : {3}", 
+                                  obj.ServiceNumber, obj.OwnerName, obj.CarModel, obj.ServiceType);
+            }
+        }
+
+        else if (choice == 3)
+        {
+            Console.WriteLine("Enter the service type");
+            
+            string serviceType = Console.ReadLine();
+            
+            List<Service> services = ViewDetailsByServiceType(serviceType);  // services is a list of type 'Service'
+
+            if (services.Count == 0)   // If service is empty means that service type doesn't exist
+            {
+                Console.WriteLine("Service type not found");
+            }
+            else
+            {
+                for(int i = 0; i < services.Count; i++)
+                {
+                    Service obj = services[i];
+                    Console.WriteLine("{0}  {1}  {2}  {3}", obj.ServiceNumber, obj.OwnerName, obj.CarModel, obj.ServiceType);
+                }
+            }
+        }
+
+        else if (choice == 4)
+        {
+            Console.WriteLine("Thank you");
+        }
+    }
+}
+
