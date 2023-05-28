@@ -1,0 +1,10 @@
+SELECT CONCAT('Welcome', Customer_Name, ', your OTP is', CONCAT(LEFT(Phone_No, 3), LEFT(Customer_Name,2))) AS WELCOME_INFO
+
+-- CONCAT() function concatenates all string values provided as an argument
+-- + operator can also be used to concatenate strings
+-- LEFT(Customer_Name,2) will return 2 characters of Customer_name from the left
+
+FROM CUSTOMERS
+WHERE Email_Id is not null
+ORDER BY Customer_Name ASC
+GO

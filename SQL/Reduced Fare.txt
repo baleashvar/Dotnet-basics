@@ -1,0 +1,19 @@
+SELECT Customer_id,
+    
+    -- CASE expression goes through conditions and returns a value when the first condition is met
+    -- If no conditions are true, it returns the value in the else clause.
+    
+    CASE
+    
+        WHEN Km_Driven < 300 THEN Fare_Amount - (0.05 * Fare_Amount)
+        WHEN (Km_Driven between 300 and 800) THEN Fare_Amount - (0.1 * Fare_Amount)
+        WHEN Km_Driven > 300 THEN Fare_Amount - (0.2 * Fare_Amount)
+
+    END AS Reduced_Fare_Amount        -- This will generate a new column with reduced fare amount 
+                                      -- And will contain the value returned by case expression 
+
+FROM RENTALS
+
+ORDER BY Rental_Id DESC
+
+GO

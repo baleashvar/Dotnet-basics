@@ -1,0 +1,21 @@
+SELECT Customer_id, Customer_name,  
+
+    -- Coalesce returns the first not null value
+    -- We can also use case statements to achieve the same results
+    
+    COALESCE(Address, CAST(Phone_No AS VARCHAR(30)), 'Not Available')) AS Contact_Info  -- alias
+    
+    -- If address is not null, return the address
+    -- If address is null and phone number not null, return phone number
+    -- If phone number is null, return 'Not Available'
+    
+    -- Phone Number is bigint and must be converted into varchar(30)
+    
+FROM CUSTOMERS
+
+WHERE                            
+    Email Id like ('%yahoo%')    -- % is a substitute for a sequence of characters (wildcard character)
+                                 -- like is used for pattern matching
+ORDER BY
+    Customer_Name ASC
+GO

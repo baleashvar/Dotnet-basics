@@ -1,0 +1,14 @@
+SELECT r.Rental_Id, r. Customer_Id,
+
+    CASE
+        WHEN c.Car_Type = 'Hatchback' THEN Fare_Amount + (Fare_Amount 0.2)
+        WHEN (c.Car_Type = 'MPV') or (c.Car_Type = 'Sedan') THEN Fare_Amount + (Fare_Amount 0.1)
+        ELSE Fare Amount + (Fare_Amount 0.05
+                            
+    END AS Updated_Fare_Amount
+
+FROM RENTALS r
+INNER JOIN CARS c
+ON r.Car_Id = c.Car_Id                             
+ORDER BY r. Rental_Id DESC
+GO
