@@ -1,0 +1,85 @@
+using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
+using System.Runtime.ConstrainedExecution;
+using System.Text.RegularExpressions;
+#pragma warning disable CS8600
+#pragma warning disable CS0184 
+
+public class Detegent
+{
+    // public properties 
+    
+    public string Billld { get; set; }        
+    public string Name { get; set; }
+    public int GramsInPack { get; set; }
+    public double CostPerPack { get; set; }
+}
+
+public class Service: Detegent
+{
+    public bool ValidateBillId(string billId)
+    {
+        if (billId.Length == 5) {
+            Regex regex = new Regex(@"[0-9]+:[A-Z]+");     
+            if (regex.IsMatch(billId))                   // Matching string with regex pattern
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public double CalculateTotalCost(float quantity)
+    {
+        double totalCost = (this.CostPerPack * (quantity * 1000) / this.GramsInPack);
+        return totalCost;
+    }
+}
+
+public class Program
+{ 
+    public static void Main(string[] args)
+    {
+
+        Console.WriteLine("Enter bill id");
+        string billId = Console.ReadLine();
+
+        Service obj = new Service();   // We need object to access methods of Service class because methods are not static
+
+
+        if (obj.ValidateBillId(billId) == true)
+        {
+            Console.WriteLine("Enter detergent name");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Enter pack capacity in grams");
+            int gramsinPack = Convert.ToInt32(Console.ReadLine());
+
+            obj.GramsInPack = gramsinPack;   // If we don't assign value to the object it will give NaN as output
+
+            Console.WriteLine("Enter cost per pack");
+            double costPerPack = Convert.ToDouble(Console.ReadLine());
+
+            obj.CostPerPack = costPerPack;
+
+            Console.WriteLine("Enter quantity to purchase in kgs");
+            float quantity = (float)Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Detegent cost is {0}", obj.CalculateTotalCost(quantity));
+        }
+
+        else
+        {
+            Console.WriteLine("Invalid bill id");
+        }
+
+    }
+}
