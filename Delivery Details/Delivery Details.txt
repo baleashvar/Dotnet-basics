@@ -1,0 +1,167 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+#pragma warning disable CS8600
+#pragma warning disable CS8618
+#pragma warning disable CS8601
+
+namespace coding
+{
+    class Delivery
+    {
+        long _over;
+        long _ball;
+        long _runs;
+        string _nonStriker;
+        string _batsman;
+        string _bowler;
+
+        public long Over { get { return _over; } set { _over = value; } }
+        public long Ball { get { return _ball; } set { _ball = value; } }
+        public long Runs { get { return _runs; } set { _runs = value; } }
+        public string NonStriker { get { return _nonStriker; } set { _nonStriker = value; } }
+        public string Batsman { get { return _batsman; } set { _batsman = value; } }
+        public string Bowler { get { return _bowler; } set { _bowler = value; } }
+
+        public Delivery()
+        {
+
+        }
+        public Delivery(long Over, long Ball, long Runs, string NonStriker, string Batsman, string Bowler)
+        {
+            this.Over = Over;
+            this.Ball = Ball;
+            this.Runs = Runs;
+            this.NonStriker = NonStriker;
+            this.Batsman = Batsman;
+            this.Bowler = Bowler;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0,-10} {1, -10} {2, -10} {3, -10} {4, -10} {5}", this.Over, this.Ball, this.Runs, this.Batsman, this.Bowler, this.NonStriker);
+        }
+    }
+
+
+    class DeliveryBO 
+    {
+        public void DisplayAllDeliveryDetails(List<Delivery> deliveryList)
+        {
+            for(int i = 0; i < deliveryList.Count; i++)
+            {
+                Delivery delivery = deliveryList[i];
+                Console.WriteLine(delivery.ToString());
+            }
+        }
+
+        public void DisplayBatsmanBowlerDetails(List<Delivery> deliveryList, long ball, long over)
+        {
+            for (int i = 0; i < deliveryList.Count; i++)
+            {
+                Delivery delivery = deliveryList[i];
+
+                if(delivery.Ball == ball && delivery.Over == over)
+                {
+                    Console.WriteLine("Batsman : {0}", delivery.Batsman);   
+                    Console.WriteLine("Bowler : {0}", delivery.Bowler);     
+                }
+            }
+        }
+
+        public void DisplayMaximumRunDetails(List<Delivery> deliveryList) 
+        {
+            long max = 0;
+            for (int i = 0; i < deliveryList.Count; i++)
+            {
+                Delivery delivery = deliveryList[i];
+                if (delivery.Runs > max)
+                {
+                    max= delivery.Runs;
+                }
+            }
+
+            for (int i = 0; i < deliveryList.Count; i++)
+            {
+                Delivery delivery = deliveryList[i];
+                if (delivery.Runs == max)
+                {
+                    Console.WriteLine("Over : {0}", delivery.Over);      
+                    Console.WriteLine("Ball : {0}", delivery.Ball); 
+                }
+            }
+
+        }
+    }
+
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            List<Delivery> deliveryList = new List<Delivery>();
+
+            Console.WriteLine("Enter the number of deliveries");
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            for(int i = 0; i < n; i++)
+            {
+                Console.WriteLine("Enter the over");
+                long over = Convert.ToInt64(Console.ReadLine());
+
+                Console.WriteLine("Enter the ball");
+                long ball = Convert.ToInt64(Console.ReadLine());
+
+                Console.WriteLine("Enter the runs");
+                long runs = Convert.ToInt64(Console.ReadLine());
+
+                Console.WriteLine("Enter the batsman name");
+                string batsman = Console.ReadLine();
+
+                Console.WriteLine("Enter the bowler name");
+                string bowler = Console.ReadLine();
+
+                Console.WriteLine("Enter the nonStriker name");
+                string nonStriker = Console.ReadLine();
+
+                deliveryList.Add(new Delivery() { Over = over, Ball = ball, Runs = runs, Batsman = batsman, Bowler = bowler, NonStriker = nonStriker });
+
+            }
+
+            Console.WriteLine("Enter your choice");
+
+            Console.WriteLine("1. View delivery details");
+            Console.WriteLine("2. Batsman and Bowler");
+            Console.WriteLine("3. Maximum runs");
+            
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            DeliveryBO obj = new DeliveryBO();
+
+            if(choice == 1)
+            {
+                obj.DisplayAllDeliveryDetails(deliveryList);
+            }
+
+            else if (choice == 2)
+            {
+                Console.WriteLine("Enter the over for which batsman and bowler to be known");
+
+                long over = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Enter the ball for which batsman and bowler to be known");
+
+                long ball = Convert.ToInt32(Console.ReadLine());
+
+                obj.DisplayBatsmanBowlerDetails(deliveryList, ball, over);
+            }
+
+            else if (choice == 3)
+            {
+                obj.DisplayMaximumRunDetails(deliveryList);
+            }
+        }
+    }
+
+}
