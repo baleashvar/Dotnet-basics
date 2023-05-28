@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+//Auto mart
+public class program
+{
+
+    public class car
+    {
+        public string Model{get;set;}
+        public string BodyStyle{get;set;}
+        public double Price{get;set;}
+
+    }
+    
+    public class carUtility:  car
+    {
+        public bool ValidateCarModel()
+        {
+            
+            if( Model=="A3" || Model=="A8" || Model=="Q5")
+            {
+                return true;
+            }
+            return false;
+        }
+        public car PriceCalculation()
+        {
+            double disc=0;
+            if(BodyStyle=="Sedan")
+            {
+                disc+=disc*0.05;
+            }
+            else if(BodyStyle=="SUV")
+            {
+                disc+=disc*0.1;
+            }
+        
+            double Priceafterdisc=0;
+            Priceafterdisc=Price-disc;
+
+            car obj=new car();
+            obj.Model=Model;
+            obj.BodyStyle=BodyStyle;
+            obj.Price=Priceafterdisc;
+            return obj;
+
+        }
+
+
+//How t0 call a function in main function
+    }
+    public class void Main(string[] args)
+    {
+        Console.WriteLine("Get model from user");
+        string model=Console.ReadLine();
+        
+        Console.WriteLine("Enter the model");
+        if (!ValidateCarModel())
+        {
+            Console.WriteLine("Invalid car model")
+        }
+    }
+}
+
