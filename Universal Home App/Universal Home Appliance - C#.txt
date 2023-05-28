@@ -1,0 +1,219 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+public class Appliance{
+    
+         public string Id {get; set;}
+         public string Name {get; set;}
+         public string Brand {get; set;}
+         public double Price{get; set;}
+}
+
+public class Program{
+        
+        // applianceDetails is a dictionary that contains key as integers and values as object of class Appliance
+	  // Roughly it looks like this 
+
+	  // applianceDetails = {1 : object1(Id = "AP01", Name = "Refrigerator", Brand = "LG", Price = 10000),
+	  //				 2 : object2(Id = "AP02", Name = "Dishwasher",   Brand = "Samsung", Price = 25000),
+	  //				 and so on}
+
+	  // We can access values of dictionary as applianceDetails[1]
+	  // Since each value in the dictionary is an object, we can access properties using applianceDetails[1].Brand (this will give LG)
+
+        public static Dictionary<int, Appliance> applianceDetails = new Dictionary<int, Appliance>();
+
+
+	  // METHOD 1 - GetApplianceDetails
+        
+        // Search appliance Id 
+        // Go over each key value pair and search Id
+        // If id is found, store appliance id and name in a new dictionary say d1
+        // d1 = {"AP01" : "Oven_LG", "AP02" : "Dishwasher_Samsung"}  is a dictionary of type Dictionary<string, string>
+	  // This dictionary contains both key and value as string
+        // return this new Dictionary
+        
+        public static Dictionary<string, string> GetApplianceDetails(string applianceId){
+            
+            Dictionary<string, string> d1 = new Dictionary<string, string>();
+            
+            for(int i = 0; i < applianceDetails.Count; i++){
+
+                KeyValuePair<int, Appliance> kvp = applianceDetails.ElementAt(i);
+
+		    Appliance obj = kvp.Value;   // Accessing value
+
+                string id = obj.Id;   // Since value in the dictionary is an object, we can access its properties
+                
+                if (applianceId == id){
+                    string name = kvp.Value.Name + '_' + kvp.Value.Brand;   
+                    d1.Add(id, name);
+                }
+            }
+            
+            return d1;
+        }
+        
+        // METHOD 2 - FindApplianceWithPriceRange
+
+        // Search appliances based on price range 
+        // If appliance whose price is within range is found store name and brand to a new dictionary
+        // Lets say price range is from 4000 to 6000
+        // Only appliance with id AP03 falls in this price range 
+        // Add details of AP03 in new dictionary
+        // d2 = {'Oven' : 'Bosch'}
+	  // d2 with have both key and value as a string therefore we declare it as Dictionary<string, string>
+        
+        
+        public static Dictionary<string, string> FindApplianceWithPriceRange(double minRange, double maxRange){
+            
+            Dictionary<string, string> d2 = new Dictionary<string, string>();
+            
+            for(int i = 0; i < applianceDetails.Count; i++){
+                KeyValuePair<int, Appliance> kvp = applianceDetails.ElementAt(i);
+                
+                Appliance obj = kvp.Value;
+
+                double price = obj.Price;
+                
+                if (price >= minRange && price <= maxRange){   // If price of current object lies with the range, add that to the dictionary
+ 
+                    d2.Add(obj.Name, obj.Brand);
+                }
+            }
+            
+            return d2;
+        }
+        
+        
+	  // METHOD 3 - FindHighCostAppliance
+
+        // Go over each key value pair in the Dictionary
+        // Find the highest cost and store it 
+        // Go over the Dictionary again
+        // If price == max price then add that object of appliance in new dictionary
+        
+        // d3 = {1: obj1(id, name, brand, price), 
+        //       2: obj2(id, name, brand, price)}
+        
+        // return this dictionary
+        
+        public static Dictionary<int, Appliance> FindHighCostAppliance(){
+            
+            Dictionary<int, Appliance> d3 = new Dictionary<int, Appliance>();
+            
+            // Find max price 
+            
+		// let initial maximum value be 0, if we find anything greater than this, we gonna update this variable
+		// By the end of the loop, this variable will store the max value of price
+
+		double maxPrice = 0; 
+
+            for(int i = 0; i < applianceDetails.Count; i++){
+                KeyValuePair<int, Appliance> kvp = applianceDetails.ElementAt(i);
+                Appliance obj = kvp.Value;
+                double price = obj.Price;
+                if (price > maxPrice){
+                    maxPrice = price;
+                }
+            }
+            
+            // Find appliance corresponding to highest price 
+            
+            for(int i = 0; i < applianceDetails.Count; i++){
+                KeyValuePair<int, Appliance> kvp = applianceDetails.ElementAt(i);
+                int key = kvp.Key;
+                Appliance obj = kvp.Value;
+                double price = obj.Price;
+                if (price  == maxPrice){
+                    d3.Add(key, obj);
+                }
+            }
+            
+            return d3;
+        }
+        
+	  // Main Function
+
+        public static void Main(string[] args){
+            
+            applianceDetails.Add(1, new Appliance { Id = "AP01", Name = "Refrigerator", Brand = "LG",        Price = 10000 });
+            applianceDetails.Add(2, new Appliance { Id = "AP02", Name = "Dishwasher",   Brand = "Samsung",   Price = 25000 });
+            applianceDetails.Add(3, new Appliance { Id = "AP03", Name = "Oven",         Brand = "Bosch",     Price = 5000 });
+            applianceDetails.Add(4, new Appliance { Id = "AP04", Name = "Microwave",    Brand = "Whirlpool", Price = 7500 });
+            applianceDetails.Add(5, new Appliance { Id = "AP05", Name = "Toaster",      Brand = "LG",        Price = 1500 });
+            
+            Console.WriteLine("1. Get Appliance details");
+            Console.WriteLine("2. Find appliance with price range");
+            Console.WriteLine("3. Find high cost appliance");
+            Console.WriteLine("4. Exit");
+            
+            int choice = Convert.ToInt32(Console.ReadLine());
+            
+            if (choice == 1){
+
+                string applianceId = Console.ReadLine();
+
+		    // Call method GetApplianceDetails and store value returned in variable result
+		
+                Dictionary<string,string> result = GetApplianceDetails(applianceId);      // results hold a dictionary
+                
+		    // If returned dictionary is not empty, go over each key value pair and print the key and the value
+
+                if (result.Count != 0){
+                    for(int i = 0; i < result.Count; i++){
+                        KeyValuePair<string, string> kvp = result.ElementAt(i);
+                        Console.WriteLine("{0} {1}", kvp.Key, kvp.Value);
+                    }
+                }
+                else{
+                    Console.WriteLine("Appliance id not found");
+                }
+            }
+                
+                
+            if(choice == 2){
+
+            double minRange = Convert.ToDouble(Console.ReadLine());
+            double maxRange = Convert.ToDouble(Console.ReadLine());
+
+            Dictionary<string,string> result = FindApplianceWithPriceRange(minRange, maxRange);
+
+                if (result.Count != 0)
+                {
+                    for(int i = 0; i < result.Count; i++){
+                        KeyValuePair<string, string> kvp = result.ElementAt(i);
+                        Console.WriteLine("{0} {1}", kvp.Key, kvp.Value);
+                        }
+                }
+                
+                else
+                {
+                    Console.WriteLine("Appliance not found");
+                }
+            }
+            
+            
+            if(choice == 3){
+                
+                Dictionary<int, Appliance> result = FindHighCostAppliance();
+                
+                if (result.Count != 0){
+                    for(int i = 0; i < result.Count; i++){
+                        KeyValuePair<int, Appliance> kvp = result.ElementAt(i);
+                        Appliance obj = kvp.Value;
+                        Console.WriteLine("ID : {0}, Name : {1}, Brand : {2}, Price : {3}", obj.Id, obj.Name, obj.Brand, obj.Price);
+                    }
+                }
+            }
+            
+            if(choice == 4){
+                Console.WriteLine("Thank you");
+            }
+        }
+    }
+}
